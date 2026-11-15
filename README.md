@@ -1,7 +1,5 @@
-# Group-30-IT135-cycle_tracker
-cycle_tracker is a web app designed to help women predict menstrual cycle phases, free days, ovulation periods, and fertile windows. The app can also send SMS reminders when users are approaching important cycle events so they can plan ahead more effectively.
-
-# cycle_tracker
+# EasyFlow
+EasyFlow is a menstrual health app that helps users track their cycles and estimate period dates, ovulation, and fertile windows. Users can opt in to receive SMS reminders as important cycle dates approach.
 
 > Women can track their menstrual cycle, predict key reproductive phases, and receive timely reminders so they can plan daily activities with confidence and better health awareness.
 
@@ -22,10 +20,10 @@ Later (out of scope for now): symptom tracking, calendar export, fertility notes
 ## Phone accounts and SMS reminders
 The app uses an international phone number (E.164 format, for example `+233241234567`) and password for registration and login. At registration, users can explicitly opt in to period reminders; only opted-in users receive them. A reminder is sent three days before the predicted next period.
 
-1. Back up the database, then run `cycle_tracker/migrations/20261115_phone_sms.sql` against the `cycle_tracker` database. It preserves the old username as `legacy_username`; for existing accounts, fill in each account's `phone_number` with the user's real international number before relying on phone login. The new reminder preference defaults to off.
+1. Back up the database, then run `EasyFlow/migrations/20261115_phone_sms.sql` against the existing `cycle_tracker` database. It preserves the old username as `legacy_username`; for existing accounts, fill in each account's `phone_number` with the user's real international number before relying on phone login. The new reminder preference defaults to off.
 2. Set `ARKESSEL_API_KEY` and `ARKESSEL_SENDER_ID` in the environment used by PHP. Keep the API key private; do not commit it to the repository.
 3. Ensure PHP's cURL extension is enabled and authorize the sender ID in your Arkesel account.
-4. Schedule `php cycle_tracker/send_reminders.php` to run daily using Windows Task Scheduler or cron. The script records successful sends to prevent repeats; failed requests are reported and eligible for retry on a later run.
+4. Schedule `php EasyFlow/send_reminders.php` to run daily using Windows Task Scheduler or cron. The script records successful sends to prevent repeats; failed requests are reported and eligible for retry on a later run.
 
 The SMS sender uses Arkesel's [SMS API](https://developers.arkesel.com/) (`POST /api/v2/sms/send`).
 

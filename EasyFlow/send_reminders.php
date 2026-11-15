@@ -47,7 +47,7 @@ foreach ($reminders as $reminder) {
     }
 
     $date = (new DateTimeImmutable($reminder['next_period_date']))->format('M j');
-    $message = "Cycle Tracker reminder: your next period is expected on {$date}. Dates are estimates.";
+    $message = "EasyFlow reminder: your next period is expected on {$date}. Dates are estimates.";
 
     try {
         sendArkeselSms($reminder['phone_number'], $message);
