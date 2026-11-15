@@ -1,4 +1,4 @@
-# EasyFlow
+# Group-30-IT135-EasyFlow
 EasyFlow is a menstrual health app that helps users track their cycles and estimate period dates, ovulation, and fertile windows. Users can opt in to receive SMS reminders as important cycle dates approach.
 
 > Women can track their menstrual cycle, predict key reproductive phases, and receive timely reminders so they can plan daily activities with confidence and better health awareness.
