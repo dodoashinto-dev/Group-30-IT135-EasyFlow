@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ffeef8, #f3e7ff, #e3f2fd, #fff0f5);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: #2d3436;
+    min-height: 100vh;
+    padding: 30px 15px;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    max-width: 460px;
+    margin: 15px auto;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 32px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.12);
+    animation: fadeUp 0.6s ease-out;
+}
+
+.container.wide {
+    max-width: 860px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #fce4ec;
+}
+
+.header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #d63384, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-logout {
+    text-decoration: none;
+    background: #fff0f6;
+    color: #d63384;
+    padding: 9px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-logout:hover {
+    background: #d63384;
+    color: #ffffff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 15px rgba(214, 51, 132, 0.25);
+}
+
+/* Form & Interactive Inputs */
+h3 {
+    font-size: 17px;
+    margin-bottom: 16px;
+    color: #4a4a4a;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    background: #ffffff;
+    padding: 14px;
+    border-radius: 16px;
+    border: 1px solid #f3e5f5;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.form-group:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border-color: #f48fb1;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #636e72;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid #f1f2f6;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #fafafa;
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #e84393;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(232, 67, 147, 0.12);
+}
+
+/* Quick-tap pill buttons */
+.quick-pills {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.pill {
+    background: #fce4ec;
+    color: #c2185b;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    width: auto;
+    box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.pill:hover {
+    background: #d63384;
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: none;
+}
+
+/* Main Submit Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ff6b81 0%, #d63384 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(214, 51, 132, 0.3);
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 26px rgba(214, 51, 132, 0.42);
+}
+
+button[type="submit"]:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+/* Floating Hover Cards */
+.prediction-section {
+    margin-top: 34px;
+    animation: fadeUp 0.7s ease-out;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.stat-card {
+    padding: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stat-card:hover {
+    transform: translateY(-7px) scale(1.03);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.stat-card .title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+    opacity: 0.85;
+}
+
+.stat-card .value {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.stat-card .sub {
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.8;
+}
+
+.card-period {
+    background: linear-gradient(135deg, #ffe3e8 0%, #ffb3c6 100%);
+    color: #800f2f;
+}
+
+.card-ovulation {
+    background: linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%);
+    color: #4a148c;
+}
+
+.card-fertile {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+    color: #e65100;
+}
+
+.card-safe {
+    background: linear-gradient(135deg, #e0f2f1 0%, #80cbc4 100%);
+    color: #004d40;
+}
+
+.disclaimer {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+}
+
+/* Interactive Table */
+.history-section {
+    margin-top: 34px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+th {
+    color: #b8256e;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+tbody tr {
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+tbody tr:hover {
+    transform: translateX(6px) scale(1.01);
+    box-shadow: 0 6px 18px rgba(214, 51, 132, 0.12);
+}
+
+td {
+    padding: 14px;
+    font-size: 14px;
+}
+
+td:first-child { border-radius: 12px 0 0 12px; }
+td:last-child { border-radius: 0 12px 12px 0; }
+
+/* Auth Alerts & Links */
+.error {
+    background: #ffe3e3;
+    color: #c92a2a;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.success {
+    background: #d3f9d8;
+    color: #2b8a3e;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #d63384;
+    font-weight: 600;
+    text-decoration: none;
+}
