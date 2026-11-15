@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$displayName = $_SESSION['phone_number'] ?? $_SESSION['username'] ?? '';
 $latest = null;
 $show_form = false;
 
@@ -127,7 +128,7 @@ if (!$latest) {
 <div class="container wide">
     <div class="header">
         <div style="display: flex; align-items: center; gap: 15px;">
-            <h2>🌸 Hi, <?= htmlspecialchars($_SESSION['username']) ?></h2>
+            <h2>🌸 Hi, <?= htmlspecialchars($displayName) ?></h2>
             <div class="nav-links">
                 <a href="index.php">🏠 Dashboard</a>
             </div>

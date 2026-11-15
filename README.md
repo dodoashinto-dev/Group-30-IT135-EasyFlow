@@ -19,6 +19,16 @@ Later (out of scope for now): symptom tracking, calendar export, fertility notes
 - External service: Arkesel SMS API for reminder notifications to users
 - Data stored: user profiles, menstrual cycle history, prediction results, ovulation dates, fertile window data, and reminder preferences
 
+## Phone accounts and SMS reminders
+The app uses an international phone number (E.164 format, for example `+233241234567`) and password for registration and login. At registration, users can explicitly opt in to period reminders; only opted-in users receive them. A reminder is sent three days before the predicted next period.
+
+1. Back up the database, then run `cycle_tracker/migrations/20261115_phone_sms.sql` against the `cycle_tracker` database. It preserves the old username as `legacy_username`; for existing accounts, fill in each account's `phone_number` with the user's real international number before relying on phone login. The new reminder preference defaults to off.
+2. Set `ARKESSEL_API_KEY` and `ARKESSEL_SENDER_ID` in the environment used by PHP. Keep the API key private; do not commit it to the repository.
+3. Ensure PHP's cURL extension is enabled and authorize the sender ID in your Arkesel account.
+4. Schedule `php cycle_tracker/send_reminders.php` to run daily using Windows Task Scheduler or cron. The script records successful sends to prevent repeats; failed requests are reported and eligible for retry on a later run.
+
+The SMS sender uses Arkesel's [SMS API](https://developers.arkesel.com/) (`POST /api/v2/sms/send`).
+
 ## Team (roles rotate every 3 weeks)
 | Name | GitHub | Role (weeks 1-3) |
 |------|--------|------------------|

@@ -1,25 +1,34 @@
 <?php
 require 'db.php';
 $message = '';
+$phoneNumber = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = trim($_POST['username']);
-    $pass = $_POST['password'];
+    $submittedPhone = $_POST['phone_number'] ?? '';
+    $submittedPassword = $_POST['password'] ?? '';
+    $phoneNumber = is_string($submittedPhone)
+        ? preg_replace('/[\s().-]/', '', trim($submittedPhone))
+        : '';
+    $pass = is_string($submittedPassword) ? $submittedPassword : '';
+    $smsRemindersEnabled = isset($_POST['sms_reminders_enabled']) ? 1 : 0;
 
-    if (!empty($user) && !empty($pass)) {
+    if ($phoneNumber !== '' && $pass !== '' && preg_match('/^\+?[1-9]\d{7,14}$/', $phoneNumber)) {
         // Hash the password securely
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
         try {
-            $stmt = $pdo->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-            $stmt->execute([$user, $hashedPassword]);
+            $stmt = $pdo->prepare("INSERT INTO users (phone_number, password_hash, sms_reminders_enabled) VALUES (?, ?, ?)");
+            $stmt->execute([$phoneNumber, $hashedPassword, $smsRemindersEnabled]);
             header("Location: login.php?registered=1");
             exit;
         } catch (PDOException $e) {
-            $message = "Username already exists. Please choose another.";
+            if ($e->getCode() !== '23000') {
+                throw $e;
+            }
+            $message = "That phone number is already registered. Please log in or use another number.";
         }
     } else {
-        $message = "Please fill in all fields.";
+        $message = "Enter a valid international phone number and password.";
     }
 }
 ?>
@@ -35,10 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>Create an Account</h2>
     <?php if ($message): ?><p class="error"><?= htmlspecialchars($message) ?></p><?php endif; ?>
     <form method="POST">
-        <label>Username</label>
-        <input type="text" name="username" required>
+        <label for="phone_number">Phone number (include country code)</label>
+        <input type="tel" id="phone_number" name="phone_number" value="<?= htmlspecialchars($phoneNumber) ?>" placeholder="+233241234567" autocomplete="tel" pattern="\+?[1-9][0-9]{7,14}" required>
         <label>Password</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" autocomplete="new-password" required>
+        <label class="checkbox-label">
+            <input type="checkbox" name="sms_reminders_enabled" value="1">
+            I agree to receive cycle reminders by SMS.
+        </label>
         <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a href="login.php">Login here</a></p>
